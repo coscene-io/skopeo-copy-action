@@ -26,7 +26,7 @@ runs:
       run: skopeo copy --src-creds ${{ inputs.src-creds }} docker://${{ inputs.src-image }} docker://${{ inputs.dst-image }}
       shell: bash
     - name: copy with dst-creds only
-      if: ${{ inputs.sre-creds == '' && inputs.dst-creds != '' }}
+      if: ${{ inputs.src-creds == '' && inputs.dst-creds != '' }}
       run: skopeo copy --dest-creds ${{ inputs.dst-creds }} docker://${{ inputs.src-image }} docker://${{ inputs.dst-image }}
       shell: bash
     - name: copy with src-creds and dst-creds
