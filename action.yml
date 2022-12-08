@@ -1,0 +1,25 @@
+name: 'skopeo-copy-action'
+description: 'Copy image from src to dst by Skopeo'
+author: jiahao.cai@coscene.io
+branding:
+  color: blue
+  icon: copy
+inputs:
+  src-image:
+    description: "source image with tag to copy from"
+    required: true
+  src-creds:
+    description: "credentials with format: [USERNAME]:[PASSWORD] to pull source image"
+    required: true
+  dst-image:
+    description: "destination image with tag to copy to"
+    required: true
+  dst-creds:
+    description: "credentials with format: [USERNAME]:[PASSWORD] to push destination image"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - run: skopeo copy --src-creds ${{ inputs.src-creds }} --dest-creds ${{ inputs.dst-creds }} docker://${{ inputs.src-image }} docker://${{ inputs.dst-image }}
+      shell: bash
