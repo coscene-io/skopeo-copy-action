@@ -23,17 +23,17 @@ runs:
   steps:
     - name: copy with src-creds only
       if: ${{ inputs.src-creds != '' && inputs.dst-creds == '' }}
-      run: skopeo copy --src-creds ${{ inputs.src-creds }} docker://${{ inputs.src-image }} docker://${{ inputs.dst-image }}
+      run: skopeo copy --all --src-creds ${{ inputs.src-creds }} docker://${{ inputs.src-image }} docker://${{ inputs.dst-image }}
       shell: bash
     - name: copy with dst-creds only
       if: ${{ inputs.src-creds == '' && inputs.dst-creds != '' }}
-      run: skopeo copy --dest-creds ${{ inputs.dst-creds }} docker://${{ inputs.src-image }} docker://${{ inputs.dst-image }}
+      run: skopeo copy --all --dest-creds ${{ inputs.dst-creds }} docker://${{ inputs.src-image }} docker://${{ inputs.dst-image }}
       shell: bash
     - name: copy with src-creds and dst-creds
       if: ${{ inputs.src-creds != '' && inputs.dst-creds != '' }}
-      run: skopeo copy --src-creds ${{ inputs.src-creds }} --dest-creds ${{ inputs.dst-creds }} docker://${{ inputs.src-image }} docker://${{ inputs.dst-image }}
+      run: skopeo copy --all --src-creds ${{ inputs.src-creds }} --dest-creds ${{ inputs.dst-creds }} docker://${{ inputs.src-image }} docker://${{ inputs.dst-image }}
       shell: bash
     - name: copy without credentials
       if: ${{ inputs.src-creds == '' && inputs.dst-creds == '' }}
-      run: skopeo copy docker://${{ inputs.src-image }} docker://${{ inputs.dst-image }}
+      run: skopeo copy --all docker://${{ inputs.src-image }} docker://${{ inputs.dst-image }}
       shell: bash
